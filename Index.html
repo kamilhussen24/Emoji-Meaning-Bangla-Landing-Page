@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ইমোজি হাউস</title>
+    <style>
+        :root {
+            --primary-color: #FF6B6B;
+            --secondary-color: #4ECDC4;
+            --accent-color: #FFE66D;
+            --text-color: #2d3436;
+            --nav-height: 60px;
+            --bg-color: #ffffff;
+            --card-bg: #ffffff;
+        }
+
+        .dark-mode {
+            --primary-color: #FF8E8E;
+            --text-color: #ffffff;
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+        }
+
+        body {
+            margin: 0;
+            padding-top: var(--nav-height);
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Hind Siliguri', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        /* নেভিগেশন স্টাইল */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1rem;
+            height: var(--nav-height);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .menu-toggle {
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .home-btn {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+    
+    /* নতুন সিএসএস */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+        }
+
+        /* ড্রপডাউন মেনু */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--card-bg);
+            width: 200px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 0 0 10px 10px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .dropdown-menu.active {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 1rem;
+            text-decoration: none;
+            color: var(--text-color);
+            display: block;
+            transition: background 0.3s;
+        }
+
+        /* ইমোজি কার্ড স্টাইল */
+        .emoji-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem 1rem;
+            margin-top: var(--nav-height);
+        }
+
+        .emoji-card {
+            background: var(--card-bg);
+            width: 95%;
+            max-width: 600px;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .emoji-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .emoji {
+            font-size: 4rem;
+            text-align: center;
+            display: block;
+            margin: 0 auto;
+            font-family: "Segoe UI Emoji", "Apple Color Emoji";
+        }
+
+        .emoji-name {
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .emoji-category {
+            display: block;
+            text-align: center;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        /* ডার্ক মোড টগল */
+        .theme-toggle {
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* রেস্পন্সিভ ডিজাইন */
+        @media (min-width: 768px) {
+            .emoji {
+                font-size: 6rem;
+            }
+            
+            .emoji-name {
+                font-size: 2rem;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                display: flex;
+                background: transparent;
+                box-shadow: none;
+                width: auto;
+                gap: 2rem;
+            }
+            
+            .dropdown-item {
+                padding: 0;
+                font-weight: 500;
+            }
+            
+            .menu-toggle {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- নেভিগেশন বার -->
+    <nav class="nav-bar">
+        <div class="nav-left">
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="about.html" class="dropdown-item">এবাউট</a>
+                <a href="terms.html" class="dropdown-item">টার্মস</a>
+                <a href="policy.html" class="dropdown-item">পলিসি</a>
+            </div>
+        </div>
+        
+        <a href="#home" class="home-btn">ইমোজি হাউস</a>
+        
+        <div class="nav-right">
+            <div class="theme-toggle" onclick="toggleTheme()"> </div>
+        </div>
+    </nav>
+
+<!-- নেভিগেশন এবং CSS একই থাকবে -->
+
+<div class="emoji-stack">
+    <!-- Existing Emojis -->
+    <div class="emoji-card" onclick="navigateToDetail('😀', 'হাসিমুখ', 'স্মাইলি')">
+        <div class="emoji">😀</div>
+        <h2 class="emoji-name">হাসিমুখ</h2>
+        <span class="emoji-category">স্মাইলি</span>
+    </div>
+
+    <!-- নতুন ইমোজি যোগ করুন -->
+    <div class="emoji-card" onclick="navigateToDetail('😂', 'হাসির টিয়ার', 'স্মাইলি')">
+        <div class="emoji">😂</div>
+        <h2 class="emoji-name">হাসির টিয়ার</h2>
+        <span class="emoji-category">স্মাইলি</span>
+    </div>
+
+    <div class="emoji-card" onclick="navigateToDetail('😍', 'হার্ট আইজ', 'স্মাইলি')">
+        <div class="emoji">😍</div>
+        <h2 class="emoji-name">হার্ট আইজ</h2>
+        <span class="emoji-category">স্মাইলি</span>
+    </div>
+
+    <div class="emoji-card" onclick="navigateToDetail('🔥', 'আগুন', 'প্রকৃতি')">
+        <div class="emoji">🔥</div>
+        <h2 class="emoji-name">আগুন</h2>
+        <span class="emoji-category">প্রকৃতি</span>
+    </div>
+
+    <div class="emoji-card" onclick="navigateToDetail('👍', 'থাম্স আপ', 'জেস্চার')">
+        <div class="emoji">👍</div>
+        <h2 class="emoji-name">থাম্স আপ</h2>
+        <span class="emoji-category">জেস্চার</span>
+    </div>
+
+    <div class="emoji-card" onclick="navigateToDetail('🙏', 'প্রার্থনা', 'জেস্চার')">
+        <div class="emoji">🙏</div>
+        <h2 class="emoji-name">প্রার্থনা</h2>
+        <span class="emoji-category">জেস্চার</span>
+    </div>
+
+    <div class="emoji-card" onclick="navigateToDetail('😢', 'কান্না', 'স্মাইলি')">
+        <div class="emoji">😢</div>
+        <h2 class="emoji-name">কান্না</h2>
+        <span class="emoji-category">স্মাইলি</span>
+    </div>
+
+    <div class="emoji-card" onclick="navigateToDetail('🎉', 'পার্টি', 'বস্তু')">
+        <div class="emoji">🎉</div>
+        <h2 class="emoji-name">পার্টি</h2>
+        <span class="emoji-category">বস্তু</span>
+    </div>
+
+    <div class="emoji-card" onclick="navigateToDetail('🤔', 'চিন্তা', 'স্মাইলি')">
+        <div class="emoji">🤔</div>
+        <h2 class="emoji-name">চিন্তা</h2>
+        <span class="emoji-category">স্মাইলি</span>
+    </div>
+
+    <div class="emoji-card" onclick="navigateToDetail('💯', '১০০ পয়েন্ট', 'সিম্বল')">
+        <div class="emoji">💯</div>
+        <h2 class="emoji-name">১০০ পয়েন্ট</h2>
+        <span class="emoji-category">সিম্বল</span>
+    </div>
+
+    <div class="emoji-card" onclick="navigateToDetail('🌟', 'তারকা', 'প্রকৃতি')">
+        <div class="emoji">🌟</div>
+        <h2 class="emoji-name">তারকা</h2>
+        <span class="emoji-category">প্রকৃতি</span>
+    </div>
+
+    <div class="emoji-card" onclick="navigateToDetail('😡', 'রাগ', 'স্মাইলি')">
+        <div class="emoji">😡</div>
+        <h2 class="emoji-name">রাগ</h2>
+        <span class="emoji-category">স্মাইলি</span>
+    </div>
+
+    <div class="emoji-card" onclick="navigateToDetail('🍎', 'আপেল', 'খাদ্য')">
+        <div class="emoji">🍎</div>
+        <h2 class="emoji-name">আপেল</h2>
+        <span class="emoji-category">খাদ্য</span>
+    </div>
+
+    <div class="emoji-card" onclick="navigateToDetail('🐯', 'বাঘ', 'প্রাণী')">
+        <div class="emoji">🐯</div>
+        <h2 class="emoji-name">বাঘ</h2>
+        <span class="emoji-category">প্রাণী</span>
+    </div>
+</div>
+
+    <script>
+        // মেনু টগল ফাংশন
+        function toggleMenu() {
+            const menu = document.getElementById('dropdownMenu');
+            menu.classList.toggle('active');
+        }
+
+        // ডার্ক মোড টগল
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        }
+
+        // ডিটেইল পেজে রিডাইরেক্ট
+        function navigateToDetail(emoji, name, category) {
+            localStorage.setItem('selectedEmoji', JSON.stringify({
+                emoji: emoji,
+                name: name,
+                category: category
+            }));
+            window.location.href = 'detail.html';
+        }
+
+        // থিম লোড
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+
+        // মেনু বন্ধ করার ফাংশন
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-left')) {
+                document.getElementById('dropdownMenu').classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
