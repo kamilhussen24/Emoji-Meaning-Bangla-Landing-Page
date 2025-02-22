@@ -1,5 +1,5 @@
 # Bengali Emoji Meaning 🌍
-
+# Demo https://bangla-emoji.netlify.app/
 **Bengali Emoji Meaning** is an interactive website designed to explore the meanings and uses of popular emojis in Bengali. This repository contains the **source code** for the project and is intended for **educational and development purposes only**. It is not meant for direct use or deployment.
 
 ---
